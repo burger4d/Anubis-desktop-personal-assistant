@@ -27,11 +27,6 @@ else:
     wikipedia.set_lang("fr")
     from speech_recognition import Recognizer, Microphone #API
     recognizer = Recognizer()
-    API_key = "df909cd1b6831f2dbed08918a8c22752"
-    base_url = "http://api.openweathermap.org/data/2.5/weather?"#api openweather
-    final_url = base_url + "appid=" + API_key + "&q=" + "boulogne-billancourt"
-    wdata = json.loads(urlopen(final_url).read().decode())
-    pprint(wdata)
 
 tk = Tk()
 tk.title("Anubis")
