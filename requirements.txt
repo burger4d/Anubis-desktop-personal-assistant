@@ -2,6 +2,7 @@ vosk
 pyttsx3
 fuzzywuzzy
 pywhatkit
+pyautogui
 wikipedia
 BeautifulSoup
 wxpython
