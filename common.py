@@ -3,6 +3,7 @@ from time import sleep
 import pyttsx3
 from vosk import Model, KaldiRecognizer
 import pyaudio
+'''
 import sounddevice as sd
 import torch
 
@@ -18,7 +19,7 @@ model0, _ = torch.hub.load(repo_or_dir='snakers4/silero-models',
                                      language=language,
                                      speaker=model_id)
 model0.to(device)
-
+'''
 model = Model("vosk-model-small-fr-0.22")
 recognizer = KaldiRecognizer(model, 16000)
 mic = pyaudio.PyAudio()
@@ -46,7 +47,7 @@ def user(text):
         window.Show(True)
 
 
-def say(text):
+def say2(text):
     global label
     if text == "":
         text = "..."
@@ -69,7 +70,7 @@ def say(text):
     print("Anubis: "+text)
     sleep(0.1)
 
-def say2(text):
+def say(text):
     global label
     if text == "":
         text = "..."
