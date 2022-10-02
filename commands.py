@@ -30,7 +30,7 @@ else:
 commands = {"joke": ["blague", "vanne", "joke", "fais moi rire", "fais rire"],
             "salut":["bonjour", "salut"],
             "heure": ["heure", "date", "quel jour", "le combien"],
-            "Quit":["au revoir", "tais-toi", "dors", "eteins toi", "va dormir", "quitter le programme", "quitter", "ta guele", "stop"],
+            "Quit":["au revoir", "tais-toi", "dors", "eteins toi", "va dormir", "quitter le programme", "quitter", "stop"],
             "Merci":["merci", "je te remercie", "merci beaucoup"],
             "music": ["musique", "met de la musique", "met la musique", "music"],
             "presentation": ["Qui es-tu", "t'es qui", "fais ta presentation", "presente toi"],
@@ -99,7 +99,7 @@ def execute(command):
         text = choice(["Quelle est la difference entre Dieu et un chirurgien?\nDieu ne se prend pas pour un chirurgien",
                     "Comment s'appelle un boomerang qui ne revient pas? Un cintre"])
     elif cmd == "salut":
-        text = "rebonjour à vous, grand maitre"
+        text = "rebonjour à vous"
     elif cmd == "cmd":
         os.system("start cmd")
     elif cmd == "volup":
