@@ -8,11 +8,8 @@ import webbrowser
 import pyautogui as pg
 import os
 from pprint import pprint
-import wikipedia
-from bs4 import BeautifulSoup
 from fuzzywuzzy import process
 from common import *
-wikipedia.set_lang("fr")
 
 INTERNET = None
 last_mode = None
@@ -25,6 +22,9 @@ except:
 else:
     INTERNET = True
     import pywhatkit as kit
+    import wikipedia
+    from bs4 import BeautifulSoup
+    wikipedia.set_lang("fr")
     print("(Y a Internet)")
     
 commands = {"joke": ["blague", "vanne", "joke", "fais moi rire", "fais rire"],
@@ -99,7 +99,7 @@ def execute(command):
         text = choice(["Quelle est la difference entre Dieu et un chirurgien?\nDieu ne se prend pas pour un chirurgien",
                     "Comment s'appelle un boomerang qui ne revient pas? Un cintre"])
     elif cmd == "salut":
-        text = "rebonjour à vous"
+        text = "rebonjour à vous, grand maitre"
     elif cmd == "cmd":
         os.system("start cmd")
     elif cmd == "volup":
@@ -183,3 +183,4 @@ def execute(command):
     else:
         text = text="..."
     return text
+
