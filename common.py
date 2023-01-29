@@ -5,6 +5,7 @@ from vosk import Model, KaldiRecognizer
 import pyaudio
 import sounddevice as sd
 import torch
+import os
 
 language = 'fr'
 model_id = 'v3_fr'
@@ -29,10 +30,14 @@ stream = mic.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, fr
 stream.start_stream()
 
 app = wx.App() 
-window = wx.Frame(None, title = "Anubis", size = (600,400)) 
+window = wx.Frame(None, title = "Anubis", size = (600,600)) 
 panel = wx.Panel(window) 
 label = wx.StaticText(panel, label = "Hello World", pos = (200,100))
 window.SetBackgroundColour("black")
+if "anubis.png" in os.listdir():
+    image_file = 'anubis.png'
+    bmp1 = wx.Image(image_file, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+    wx.StaticBitmap(panel, -1, bmp1, (0, 0))
 window.Show(True)
 
 engine = pyttsx3.init()
@@ -63,7 +68,7 @@ def say(text):
             text2+=" "
     if text!="...":
         label.Destroy()
-        label = wx.StaticText(panel, label = text2, pos = (0,200))
+        label = wx.StaticText(panel, label = text2, pos = (0,400))
         label.SetForegroundColour((0,255,0))
         #label.SetBackgroundColour((0,0,255))
         window.Show(True)
@@ -109,5 +114,4 @@ def listen():
             print("Vous: "+text)
             user(text)
             return text
-
 
