@@ -3,7 +3,6 @@ from time import sleep
 import pyttsx3
 from vosk import Model, KaldiRecognizer
 import pyaudio
-'''
 import sounddevice as sd
 import torch
 
@@ -13,13 +12,16 @@ sample_rate = 48000
 speaker = 'fr_0'
 device = torch.device('cpu')
 
-
-model0, _ = torch.hub.load(repo_or_dir='snakers4/silero-models',
+try:
+    model0, _ = torch.hub.load(repo_or_dir='snakers4/silero-models',
                                      model='silero_tts',
                                      language=language,
                                      speaker=model_id)
-model0.to(device)
-'''
+    model0.to(device)
+except:
+    print("no internet")
+
+
 model = Model("vosk-model-small-fr-0.22")
 recognizer = KaldiRecognizer(model, 16000)
 mic = pyaudio.PyAudio()
@@ -47,7 +49,7 @@ def user(text):
         window.Show(True)
 
 
-def say2(text):
+def say(text):
     global label
     if text == "":
         text = "..."
@@ -70,7 +72,7 @@ def say2(text):
     print("Anubis: "+text)
     sleep(0.1)
 
-def say(text):
+def say2(text):
     global label
     if text == "":
         text = "..."
@@ -107,4 +109,5 @@ def listen():
             print("Vous: "+text)
             user(text)
             return text
+
 
