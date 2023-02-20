@@ -3,4 +3,4 @@ Anubis is a simple personal  FRENCH assistant which works with a wxpython gui. U
 
 ![screen](https://user-images.githubusercontent.com/104983707/215320339-9fb0afd7-d479-4786-93c7-d2ef4544eeac.PNG)
 
-The image were created with midjourney.
+The image was created with midjourney.
