@@ -12,6 +12,7 @@ while 1:
         try:
             answer=commands.execute(commands.recognize(text))
             say(answer)
+            sleep(1)
         except Exception as err:
             print(err)
         text=""
