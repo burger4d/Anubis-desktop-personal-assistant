@@ -10,6 +10,7 @@ import os
 from pprint import pprint
 from fuzzywuzzy import process
 from common import *
+from gpt import generate_response
 
 INTERNET = None
 last_mode = None
@@ -27,10 +28,11 @@ else:
     wikipedia.set_lang("fr")
     print("(Y a Internet)")
     
-commands = {"joke": ["blague", "vanne", "joke", "fais moi rire", "fais rire"],
+commands = {"joke": ["Chuck norris", "blague", "vanne", "joke", "fais moi rire", "fais rire"],
             "salut":["bonjour", "salut"],
+            "philo":["C'est quoi la", "C'est quoi ça", "C'est quoi", "Comment ça", "A quoi sert l", "Pourquoi", "Pourquoi ça", "C'est quoi l",  "Explique", "Explique moi", "A quoi bon", "Je suis déçu", "Tu me deçois", "c'est faux", "c'est beau", "la philosophie", "Montre que", "Démontre que", "Je pense", "Qu'est-ce que", "sens de l'univers", "Dieu existe", "réponse ultime", "Qu'est-ce que la vie", "Que penser", "Que penses tu"],
             "heure": ["heure", "date", "quel jour", "le combien"],
-            "Quit":["au revoir", "tais-toi", "dors", "eteins toi", "va dormir", "quitter le programme", "quitter", "stop"],
+            "Quit":["au revoir", "tais-toi", "dors", "eteins toi", "va dormir", "quitter le programme", "quitter", "ta guele", "stop"],
             "Merci":["merci", "je te remercie", "merci beaucoup"],
             "music": ["musique", "met de la musique", "met la musique", "music"],
             "presentation": ["Qui es-tu", "t'es qui", "fais ta presentation", "presente toi"],
@@ -76,32 +78,38 @@ def recognize(TEXT):
         if var>best_var:
             best_var = var
             best_command = command
-    if best_var<90 and TEXT !="":
-        TEXT = "?"
-    print(best_var)
+    if best_var<90:
+        best_command="?"
+    print(best_var, TEXT)
     return [best_command, TEXT]
             
 def execute(command):
     global last_mode
     cmd = command[0]
+    print(cmd)
     last_mode = cmd
     TEXT = command[1]
     text = ""
     if TEXT == "":
         text = ""
         return ""
-    elif TEXT == "?":
-        text = "..."
+    elif cmd == "?":
+        if TEXT !="":
+            text = str(generate_response(TEXT))
+            print("-----> "+text)
+        else:
+            text = "..."
     elif cmd == "heure":
         now = datetime.datetime.now()
         text = "Il est actuellement "+str(now.hour) + ":" + str(now.minute)+", le "+str(now.day)+" "+["janvier", "fevrier", "mars", "avril", "mai", "juin", "juillet", "aout", "septembre", "octobre", "novembre", "decembre"][now.month-1]+" "+str(now.year)
     elif cmd == "joke":
-        text = choice(["Quelle est la difference entre Dieu et un chirurgien?\nDieu ne se prend pas pour un chirurgien",
-                    "Comment s'appelle un boomerang qui ne revient pas? Un cintre"])
+        text = choice(["Les Aliens existent! Ils se cachent juste de chuck norris.", "Quand Chuck norris coupe un oignon, c'est l'oignon qui pleure", "Quand chuck norris fait une pompe, il ne s'élève pas au dessus du sol, c'est la Terre qu'il pousse", "Il n'y a jamais eu de tornades appelées chuck, car elle aurait tout detruit dans ce cas", "Chuck norris ne ment jamais, c'est la verité qui se trompe"])
     elif cmd == "salut":
         text = "rebonjour à vous, grand maitre"
     elif cmd == "cmd":
         os.system("start cmd")
+    elif cmd == "philo":
+        text = choice(["Je ne sais pas. Si on vous demande, dites que vous êtes ivre", "Alors j'ai une opinion. Je ne vais pas argumenter, car j'ai la flemme d'expliquer pourquoi j'ai raison", "J'en ai marre. Ma vie a été un mensonge! Dieu est mort! Le gouvernement est boiteux! Thanksgiving, c'est tuer des Indiens! Jésus n'est pas né à Noël! Ils ont déplacé la date! C'était une fête païenne!", "Excusez-moi. Qui êtes vous? Que faites vous ici? Je plaisante, je m'en fiche", "Je pense que vous devez penser à l’avenir et vivre dans l’instant", "Simple: l'alcool, la cause et la solution de tous nos problèmes dans la vie.", "Désolé mais je ne parle que le français.", "42", "Personne n’existe volontairement, personne n’appartient à un endroit, tout le monde va mourir. Alors allez regarder la télé.","Je suis désolé, mais votre opinion sur ceci signifie très peu pour moi.", "J'ai été programmé pour croire que ce que vous dites est censé, mais là c'est juste incompréhensible","ça n'a rien à voir avec la question, mais je le dis quand même: Je ne supporte pas la bureaucratie. Je n’aime pas qu’on me dise où aller et quoi faire, et considère que c’est une infraction."])
     elif cmd == "volup":
         for i in range(10):pg.press("volumeup")
         text = "oui Maître"
@@ -179,8 +187,12 @@ def execute(command):
             TEXT = TEXT.replace(TEXT.split()[0], "")
             text = wikipedia.summary(TEXT, sentences=2)
         else:
+            if len(TEXT)>5:
+                try:
+                    text = generate_response(TEXT)
+                except:
+                    text = "..."
             text = "..."
     else:
         text = text="..."
     return text
-
