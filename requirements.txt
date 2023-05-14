@@ -4,6 +4,6 @@ fuzzywuzzy
 pywhatkit
 pyautogui
 wikipedia
-BeautifulSoup
+beautifulsoup4
 wxpython
 openai
