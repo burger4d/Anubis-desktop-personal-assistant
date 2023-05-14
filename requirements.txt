@@ -1,9 +1,13 @@
 vosk
+torch
 pyttsx3
 fuzzywuzzy
 pywhatkit
 pyautogui
 wikipedia
 beautifulsoup4
+sounddevice
+pyaudio
+attrdict
 wxpython
 openai
